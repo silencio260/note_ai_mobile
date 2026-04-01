@@ -6,7 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'core/network/auth_interceptor.dart';
 import 'core/network/network_info.dart';
 import 'features/auth/auth_injector.dart';
+import 'features/chat/chat_injector.dart';
 import 'features/recording/recording_injector.dart';
+import 'features/summarization/summarization_injector.dart';
 import 'features/transcription/transcription_injector.dart';
 
 /// Global service locator
@@ -35,9 +37,9 @@ Future<void> initApp() async {
   initAuth(sl);
   await initRecording(sl);
   initTranscription(sl);
+  await initSummarization(sl);
+  await initChat(sl);
 
   // Future features:
-  // initSummarization(sl);
-  // initChat(sl);
   // initSettings(sl);
 }
