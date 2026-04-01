@@ -124,7 +124,7 @@ class _AuthScreenState extends State<AuthScreen>
                     // ─── Form Card
                     Card(
                       elevation: isDark ? 0 : 4,
-                      shadowColor: Colors.black.withOpacity(0.1),
+                      shadowColor: Colors.black.withAlpha(26), // 0.1 opacity -> approx 26/255
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: BorderSide(

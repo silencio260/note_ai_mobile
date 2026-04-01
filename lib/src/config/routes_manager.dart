@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../features/auth/presentation/screens/auth_screen.dart';
+
 /// All named route strings used for navigation
 class Routes {
   Routes._();
@@ -22,7 +24,7 @@ class AppRouter {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.auth:
-        return _buildRoute(settings, const _PlaceholderScreen(title: 'Auth'));
+        return _buildRoute(settings, const AuthScreen());
       case Routes.home:
         return _buildRoute(settings, const _PlaceholderScreen(title: 'Home'));
       case Routes.player:
