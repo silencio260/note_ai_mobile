@@ -1,8 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
+import 'core/network/auth_interceptor.dart';
 import 'core/network/network_info.dart';
 import 'features/auth/auth_injector.dart';
+import 'features/recording/recording_injector.dart';
+import 'features/transcription/transcription_injector.dart';
 
 /// Global service locator
 final sl = GetIt.instance;
@@ -18,12 +23,20 @@ Future<void> initApp() async {
     () => NetworkInfoImpl(sl<Connectivity>()),
   );
 
+  sl.registerLazySingleton<Dio>(() {
+    final dio = Dio();
+    dio.interceptors.add(AuthInterceptor(sl<FirebaseAuth>()));
+    // Optional: Add logging interceptor during dev for debugging API calls
+    dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
+    return dio;
+  });
+
   // ─── Feature DI ──────────────────────────────────────────────────────────
   initAuth(sl);
+  await initRecording(sl);
+  initTranscription(sl);
 
   // Future features:
-  // initRecording(sl);
-  // initTranscription(sl);
   // initSummarization(sl);
   // initChat(sl);
   // initSettings(sl);
