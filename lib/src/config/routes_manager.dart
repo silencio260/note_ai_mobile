@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../features/auth/presentation/screens/auth_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/recording/recording_screen.dart';
+import '../screens/player/player_screen.dart';
+import '../screens/chat/chat_screen.dart';
+import '../screens/search/search_screen.dart';
+import '../screens/settings/settings_screen.dart';
 
 /// All named route strings used for navigation
 class Routes {
@@ -36,18 +40,18 @@ class AppRouter {
         final recordingId = settings.arguments as String? ?? '';
         return _buildRoute(
           settings,
-          _PlaceholderScreen(title: 'Player: $recordingId'),
+          PlayerScreen(recordingId: recordingId),
         );
       case Routes.chat:
         final recordingId = settings.arguments as String? ?? '';
         return _buildRoute(
           settings,
-          _PlaceholderScreen(title: 'Chat: $recordingId'),
+          ChatScreen(recordingId: recordingId),
         );
       case Routes.settings:
-        return _buildRoute(settings, const _PlaceholderScreen(title: 'Settings'));
+        return _buildRoute(settings, const SettingsScreen());
       case Routes.search:
-        return _buildRoute(settings, const _PlaceholderScreen(title: 'Search'));
+        return _buildRoute(settings, const SearchScreen());
       default:
         return _buildRoute(
           settings,
