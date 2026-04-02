@@ -1,11 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'data/datasources/local/audio_recorder_datasource.dart';
 import 'data/datasources/local/recording_local_datasource.dart';
 import 'data/models/recording_hive_model.dart';
 import 'data/repositories/recording_repository_impl.dart';
 import 'domain/repositories/recording_repository.dart';
 import 'domain/usecases/recording_usecases.dart';
+import 'presentation/bloc/audio_record_bloc.dart';
 import 'presentation/bloc/recording_bloc.dart';
 
 Future<void> initRecording(GetIt sl) async {
@@ -16,6 +18,9 @@ Future<void> initRecording(GetIt sl) async {
   // ── Data Sources ──────────────────────────────────────────────────────────
   sl.registerLazySingleton<RecordingLocalDataSource>(
     () => RecordingLocalDataSourceImpl(recordingBox),
+  );
+  sl.registerLazySingleton<AudioRecorderDataSource>(
+    () => AudioRecorderDataSourceImpl(),
   );
 
   // ── Repositories ──────────────────────────────────────────────────────────
@@ -36,6 +41,12 @@ Future<void> initRecording(GetIt sl) async {
       saveRecording: sl<SaveRecordingUseCase>(),
       deleteRecording: sl<DeleteRecordingUseCase>(),
       getRecordingById: sl<GetRecordingByIdUseCase>(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => AudioRecordBloc(
+      dataSource: sl<AudioRecorderDataSource>(),
     ),
   );
 }

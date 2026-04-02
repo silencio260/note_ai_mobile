@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../features/auth/presentation/screens/auth_screen.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/recording/recording_screen.dart';
 
 /// All named route strings used for navigation
 class Routes {
@@ -13,6 +15,7 @@ class Routes {
   static const String chat = '/chat';
   static const String settings = '/settings';
   static const String search = '/search';
+  static const String record = '/record';
 }
 
 /// Route generator — called from MaterialApp.onGenerateRoute.
@@ -26,7 +29,9 @@ class AppRouter {
       case Routes.auth:
         return _buildRoute(settings, const AuthScreen());
       case Routes.home:
-        return _buildRoute(settings, const _PlaceholderScreen(title: 'Home'));
+        return _buildRoute(settings, const HomeScreen());
+      case Routes.record:
+        return _buildRoute(settings, const RecordingScreen());
       case Routes.player:
         final recordingId = settings.arguments as String? ?? '';
         return _buildRoute(
