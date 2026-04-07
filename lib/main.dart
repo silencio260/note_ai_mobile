@@ -27,7 +27,9 @@ Future<void> _bootstrap() async {
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarIconBrightness: Brightness.dark,
+    systemNavigationBarIconBrightness: Brightness.light,
+    systemNavigationBarContrastEnforced: false,
+    systemStatusBarContrastEnforced: false,
   ));
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
