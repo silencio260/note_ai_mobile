@@ -7,9 +7,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'firebase_options.dart';
 
-import 'src/container_injector.dart';
-import 'src/core/utils/app_bloc_observer.dart';
-import 'src/my_app.dart';
+import 'container_injector.dart';
+import 'core/utils/app_bloc_observer.dart';
+import 'my_app.dart';
 
 void main() {
   runZonedGuarded(_bootstrap, (error, stack) {
