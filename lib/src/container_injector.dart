@@ -27,7 +27,9 @@ Future<void> initApp() async {
 
   sl.registerLazySingleton<Dio>(() {
     final dio = Dio();
-    dio.interceptors.add(AuthInterceptor(sl<FirebaseAuth>()));
+    if (sl.isRegistered<FirebaseAuth>()) {
+      dio.interceptors.add(AuthInterceptor(sl<FirebaseAuth>()));
+    }
     // Optional: Add logging interceptor during dev for debugging API calls
     dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
     return dio;

@@ -23,6 +23,36 @@ class AppEnv {
   static const String firebaseApiKeyIos =
       String.fromEnvironment('firebase_api_key_ios');
 
+  static const String firebaseApiKeyWeb =
+      String.fromEnvironment('firebase_api_key_web');
+
+  static const String firebaseAppIdAndroid =
+      String.fromEnvironment('firebase_app_id_android');
+
+  static const String firebaseAppIdIos =
+      String.fromEnvironment('firebase_app_id_ios');
+
+  static const String firebaseAppIdWeb =
+      String.fromEnvironment('firebase_app_id_web');
+
+  static const String firebaseProjectId =
+      String.fromEnvironment('firebase_project_id');
+
+  static const String firebaseMessagingSenderId =
+      String.fromEnvironment('firebase_messaging_sender_id');
+
+  static const String firebaseStorageBucket =
+      String.fromEnvironment('firebase_storage_bucket');
+
+  static const String firebaseAuthDomain =
+      String.fromEnvironment('firebase_auth_domain');
+
+  static const String firebaseMeasurementIdWeb =
+      String.fromEnvironment('firebase_measurement_id_web');
+
+  static const String firebaseMeasurementIdWindows =
+      String.fromEnvironment('firebase_measurement_id_windows');
+
   // ─── Backend ─────────────────────────────────────────────────────────────
   /// Base URL for all Firebase Cloud Functions
   static const String cloudFunctionsBaseUrl =

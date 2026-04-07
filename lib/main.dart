@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'firebase_options.dart';
 
 import 'src/container_injector.dart';
 import 'src/core/utils/app_bloc_observer.dart';
@@ -35,10 +38,9 @@ Future<void> _bootstrap() async {
   // ]);
 
   // ── 2. Firebase init ──────────────────────────────────────────────────────
-  // Uncomment after running `flutterfire configure`:
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // ── 3. StarterKit init ────────────────────────────────────────────────────
   // Uncomment after implementing AuthRepository:
