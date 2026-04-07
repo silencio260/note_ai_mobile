@@ -21,6 +21,9 @@ class RecordingEntity extends Equatable {
     required this.ownerId,
   });
 
+  bool get isTranscribing => transcriptionText == null || transcriptionText!.isEmpty;
+  bool get isSummarizing => summaryText == null || summaryText!.isEmpty;
+
   RecordingEntity copyWith({
     String? id,
     String? title,

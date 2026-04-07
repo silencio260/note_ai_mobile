@@ -4,10 +4,10 @@ class AppColors {
   AppColors._();
 
   // ─── Brand ────────────────────────────────────────────────────────────────
-  static const Color primary = Color(0xFF1976D2);
-  static const Color primaryLight = Color(0xFF4FC3F7);
-  static const Color primaryDark = Color(0xFF0D47A1);
-  static const Color accent = Color(0xFF03DAC6);
+  static const Color primary = Color(0xFF1A1A1A); // Deep black/grey
+  static const Color primaryLight = Color(0xFF424242);
+  static const Color primaryDark = Color(0xFF000000);
+  static const Color accent = Color(0xFF1A1A1A);
 
   // ─── Status ───────────────────────────────────────────────────────────────
   static const Color error = Color(0xFFB00020);
@@ -16,11 +16,11 @@ class AppColors {
   static const Color info = Color(0xFF2196F3);
 
   // ─── Background ───────────────────────────────────────────────────────────
-  static const Color backgroundLight = Color(0xFFFAFAFA);
+  static const Color backgroundLight = Color(0xFFFBFBFB);
   static const Color backgroundDark = Color(0xFF121212);
   static const Color surfaceLight = Color(0xFFFFFFFF);
-  static const Color surfaceDark = Color(0xFF1E1E1E);
-  static const Color cardDark = Color(0xFF252525);
+  static const Color surfaceDark = Color(0xFF121212);
+  static const Color cardDark = Color(0xFF1E1E1E);
 
   // ─── Text ─────────────────────────────────────────────────────────────────
   static const Color textPrimaryLight = Color(0xFF212121);
