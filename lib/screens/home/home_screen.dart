@@ -22,8 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // Fetch recordings specific to this user profile
     final authState = context.read<AuthBloc>().state;
-    if (authState.status == AuthStatus.authenticated && authState.user != null) {
-      context.read<RecordingBloc>().add(LoadRecordingsRequested(authState.user!.uid));
+    if (authState.status == AuthStatus.authenticated &&
+        authState.user != null) {
+      context
+          .read<RecordingBloc>()
+          .add(LoadRecordingsRequested(authState.user!.uid));
     }
   }
 
@@ -51,30 +54,33 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: BlocBuilder<RecordingBloc, RecordingState>(
                 builder: (context, state) {
-                  if (state.status == RecordingStatus.loading && state.recordings.isEmpty) {
-                    return const Center(child: CircularProgressIndicator(color: Colors.black));
+                  if (state.status == RecordingStatus.loading &&
+                      state.recordings.isEmpty) {
+                    return const Center(
+                        child: CircularProgressIndicator(color: Colors.black));
                   }
 
                   if (state.recordings.isEmpty) {
                     return _buildEmptyState(context);
                   }
 
-                  final groupedItems = DateGroupingUtils.groupRecordingsByDate(state.recordings);
+                  final groupedItems =
+                      DateGroupingUtils.groupRecordingsByDate(state.recordings);
 
                   return RefreshIndicator(
                     color: Colors.black,
                     onRefresh: () async {
                       final authState = context.read<AuthBloc>().state;
                       if (authState.user != null) {
-                        context.read<RecordingBloc>().add(LoadRecordingsRequested(authState.user!.uid));
+                        context
+                            .read<RecordingBloc>()
+                            .add(LoadRecordingsRequested(authState.user!.uid));
                       }
                     },
                     child: ListView.builder(
-                      padding: const EdgeInsets.only(bottom: 100, top: 4),
-                      itemCount: groupedItems.length + 1, // +1 for "Ongoing" header and card
+                      // padding: const EdgeInsets.only(bottom: 20, top: 4), // Reduced padding since it's not a bottomSheet anymore
+                      itemCount: groupedItems.length + 1,
                       itemBuilder: (context, index) {
-                        // In the screenshot, there is an "Ongoing" section.
-                        // We'll show it first if any recording is currently being processed.
                         if (index == 0) {
                           return _buildOngoingSection(state);
                         }
@@ -98,19 +104,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           return RecordingCard(
                             recording: item.recording,
                             onTap: () {
-                              Navigator.pushNamed(context, '/player', arguments: item.recording);
+                              Navigator.pushNamed(context, '/player',
+                                  arguments: item.recording);
                             },
                             onDelete: () {
                               context.read<RecordingBloc>().add(
-                                DeleteRecordingRequested(
-                                  recordingId: item.recording.id,
-                                  ownerId: item.recording.ownerId,
-                                ),
-                              );
+                                    DeleteRecordingRequested(
+                                      recordingId: item.recording.id,
+                                      ownerId: item.recording.ownerId,
+                                    ),
+                                  );
                             },
                             onRename: (newTitle) {
-                              final updated = item.recording.copyWith(title: newTitle);
-                              context.read<RecordingBloc>().add(SaveRecordingRequested(updated));
+                              final updated =
+                                  item.recording.copyWith(title: newTitle);
+                              context
+                                  .read<RecordingBloc>()
+                                  .add(SaveRecordingRequested(updated));
                             },
                           );
                         }
@@ -124,12 +134,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomSheet: HomeBottomActions(
+      bottomNavigationBar: HomeBottomActions(
         onRecordTap: () {
           Navigator.pushNamed(context, '/record');
         },
         onNewNoteTap: () {
-          // TODO: Open direct text note editor
           Navigator.pushNamed(context, '/record');
         },
       ),
@@ -140,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // If no recordings are in a transcribing state, return nothing.
     // In our simplified mock, we might just show an example if the state is loading.
     bool hasProcessing = state.recordings.any((r) => r.isTranscribing);
-    
+
     if (!hasProcessing) return const SizedBox.shrink();
 
     return Column(
@@ -224,7 +233,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 12),
             Text(
               'Capture your thoughts and let Note AI transcribe and summarize them instantly.',
-              style: TextStyle(fontSize: 14, color: Colors.grey[500], height: 1.5),
+              style:
+                  TextStyle(fontSize: 14, color: Colors.grey[500], height: 1.5),
               textAlign: TextAlign.center,
             ),
           ],
