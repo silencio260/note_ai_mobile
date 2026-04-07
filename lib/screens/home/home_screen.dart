@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/utils/date_grouping_utils.dart';
@@ -32,10 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarDividerColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        extendBody: true,
+        body: Column(
           children: [
             HomeHeader(
               onProfileTap: () {
@@ -78,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                     child: ListView.builder(
-                      // padding: const EdgeInsets.only(bottom: 20, top: 4), // Reduced padding since it's not a bottomSheet anymore
                       itemCount: groupedItems.length + 1,
                       itemBuilder: (context, index) {
                         if (index == 0) {
@@ -133,14 +142,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: HomeBottomActions(
-        onRecordTap: () {
-          Navigator.pushNamed(context, '/record');
-        },
-        onNewNoteTap: () {
-          Navigator.pushNamed(context, '/record');
-        },
+        bottomNavigationBar: HomeBottomActions(
+          onRecordTap: () {
+            Navigator.pushNamed(context, '/record');
+          },
+          onNewNoteTap: () {
+            Navigator.pushNamed(context, '/record');
+          },
+        ),
       ),
     );
   }
