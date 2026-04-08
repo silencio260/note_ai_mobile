@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum AudioRecordStatus { idle, initializing, recording, stopping, success, failure }
+enum AudioRecordStatus { idle, initializing, recording, paused, stopping, success, failure }
 
 class AudioRecordState extends Equatable {
   final AudioRecordStatus status;

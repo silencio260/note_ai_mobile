@@ -14,8 +14,24 @@ class AudioRecordBloc extends Bloc<AudioRecordEvent, AudioRecordState> {
   })  : _dataSource = dataSource,
         super(const AudioRecordState()) {
     on<StartAudioRecording>(_onStart);
+    on<PauseAudioRecording>(_onPause);
+    on<ResumeAudioRecording>(_onResume);
     on<StopAudioRecording>(_onStop);
     on<UpdateAudioDuration>(_onUpdateDuration);
+  }
+
+  Future<void> _onPause(PauseAudioRecording event, Emitter<AudioRecordState> emit) async {
+    if (state.status == AudioRecordStatus.recording) {
+      await _dataSource.pauseRecording();
+      emit(state.copyWith(status: AudioRecordStatus.paused));
+    }
+  }
+
+  Future<void> _onResume(ResumeAudioRecording event, Emitter<AudioRecordState> emit) async {
+    if (state.status == AudioRecordStatus.paused) {
+      await _dataSource.resumeRecording();
+      emit(state.copyWith(status: AudioRecordStatus.recording));
+    }
   }
 
   Future<void> _onStart(StartAudioRecording event, Emitter<AudioRecordState> emit) async {

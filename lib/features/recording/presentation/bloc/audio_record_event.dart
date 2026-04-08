@@ -19,6 +19,14 @@ class StopAudioRecording extends AudioRecordEvent {
   const StopAudioRecording();
 }
 
+class PauseAudioRecording extends AudioRecordEvent {
+  const PauseAudioRecording();
+}
+
+class ResumeAudioRecording extends AudioRecordEvent {
+  const ResumeAudioRecording();
+}
+
 class UpdateAudioDuration extends AudioRecordEvent {
   final Duration duration;
   final double amplitude;

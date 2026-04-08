@@ -21,10 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch recordings specific to this user profile
+    // Fetch recordings specific to this user profile (handles both Auth and Guest)
     final authState = context.read<AuthBloc>().state;
-    if (authState.status == AuthStatus.authenticated &&
-        authState.user != null) {
+    if (authState.user != null) {
       context
           .read<RecordingBloc>()
           .add(LoadRecordingsRequested(authState.user!.uid));

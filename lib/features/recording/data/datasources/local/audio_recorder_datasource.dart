@@ -18,6 +18,8 @@ class AudioRecordingData {
 abstract class AudioRecorderDataSource {
   Future<bool> requestPermission();
   Future<String> startRecording(String title);
+  Future<void> pauseRecording();
+  Future<void> resumeRecording();
   Future<String> stopRecording();
   void dispose();
   
@@ -92,6 +94,26 @@ class AudioRecorderDataSourceImpl implements AudioRecorderDataSource {
   }
 
   @override
+  Future<void> pauseRecording() async {
+    if (!_isRecording) return;
+    await _recorder.pause();
+    _recordingTimer?.cancel();
+  }
+
+  @override
+  Future<void> resumeRecording() async {
+    if (!_isRecording) return;
+    await _recorder.resume();
+    _recordingTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _duration = _duration + const Duration(seconds: 1);
+      _recordingController?.add(AudioRecordingData(
+        duration: _duration,
+        amplitude: _getRandomAmplitude(),
+      ));
+    });
+  }
+
+  @override
   Future<String> stopRecording() async {
     if (!_isRecording) {
       throw Exception('No active recording to stop');
@@ -100,9 +122,6 @@ class AudioRecorderDataSourceImpl implements AudioRecorderDataSource {
     final path = await _recorder.stop();
     _recordingTimer?.cancel();
     _isRecording = false;
-
-    // We do not close the stream so it can be reused later
-    // _recordingController?.close();
 
     return path ?? _currentRecordingPath ?? '';
   }
