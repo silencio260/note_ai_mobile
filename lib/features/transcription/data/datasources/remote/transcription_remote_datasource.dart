@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../../../core/config/app_env.dart';
+import '../../../../../core/api/api_endpoints.dart';
 
 abstract class TranscriptionRemoteDataSource {
   Future<String> transcribeAudio(String filePath, String languageCode);
@@ -19,11 +19,9 @@ class TranscriptionRemoteDataSourceImpl
       'language': languageCode,
     });
 
-    final url = '${AppEnv.cloudFunctionsBaseUrl}/api/transcribe';
-
     // The AuthInterceptor on Dio will automatically attach the Bearer token
     final response = await _dio.post(
-      url,
+      ApiEndpoints.transcribe,
       data: formData,
       options: Options(
         // Allow potentially longer timeouts for audio uploads/processing
